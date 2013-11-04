@@ -1,23 +1,24 @@
 package BSTree;
 use Mouse;
 
-has 'value' => (is => 'rw', isa => 'Str');
-has 'left' => (is => 'rw', isa => 'BSTree');
-has 'right' => (is => 'rw', isa => 'BSTree');
-has 'parent'=> (is => 'rw', isa => 'BSTree');
+has 'value' => (is => 'ro', isa => 'Str');
+has 'left' => (is => 'ro', isa => 'BSTree', writer => '_set_left');
+has 'right' => (is => 'ro', isa => 'BSTree', writer => '_set_right');
+has 'parent'=> (is => 'ro', isa => 'BSTree');
 
 sub add_left {
 	my $self = shift;
-	return $self->left( BSTree->new( parent => $self, value => shift ) );
+	return $self->_set_left( BSTree->new( parent => $self, value => shift ) );
 }
 
 sub add_right {
 	my $self = shift;
-	return $self->right( BSTree->new( parent => $self, value => shift ) );
+	return $self->_set_right( BSTree->new( parent => $self, value => shift ) );
 }
 
 sub add_sibling {
 	my $self = shift;
+	return undef if defined($self->parent->left) && defined($self->parent->right);
 	return defined($self->parent->left) && $self->parent->left == $self? $self->parent->add_right(@_) : $self->parent->add_left(@_);
 }
 
