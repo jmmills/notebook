@@ -13,8 +13,8 @@ sub bubble_sort {
 }
 
 my @list = map {
-	int(rand(10));
-} (1..int(rand(10)));
+	int(rand(1000));
+} (1..int(rand(25)));
 
 warn Dumper(\@list);
 warn "---";
