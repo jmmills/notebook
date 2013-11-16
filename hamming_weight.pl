@@ -19,6 +19,12 @@ sub hamming_weight {
 	return $c;
 }
 
+sub popcount_4 {
+	my $i,$c = (shift);
+	$i &= $i-1 for($c=0; $i; $c++)
+	return $c;
+}
+
 my @random_set_of_int = map { int(rand(6535)) } (0..1000+rand(1000));
 
 my $sum = 0;
@@ -29,15 +35,23 @@ $sum = 0;
 $sum += hamming_weight($_) foreach(@random_set_of_int);
 say "New way: $sum";
 
+$sum = 0;
+$sum += popcount_4($_) foreach(@random_set_of_int);
+say "Popcount way: $sum";
+
 
 timethese( 5000, {
 	'old' => sub {
 		my $sum = 0;
 		$sum += count_bits($_) foreach(@random_set_of_int);
 	},
-	'new' => sub {
+	'reg' => sub {
 		my $sum = 0;
 		$sum += hamming_weight($_) foreach(@random_set_of_int);
+	}
+	'pop' => sub {
+		my $sum = 0;
+		$sum += popcount_4($_) foreach(@random_set_of_int);
 	}
 });
 
