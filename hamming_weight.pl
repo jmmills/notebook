@@ -20,8 +20,12 @@ sub hamming_weight {
 }
 
 sub popcount_4 {
-	my $i,$c = (shift);
-	$i &= $i-1 for($c=0; $i; $c++)
+	my ($i,$c) = (shift);
+
+	for($c=0; $i; $c++) {
+		$i &= ($i - 1) 
+	}
+
 	return $c;
 }
 
@@ -48,7 +52,7 @@ timethese( 5000, {
 	'reg' => sub {
 		my $sum = 0;
 		$sum += hamming_weight($_) foreach(@random_set_of_int);
-	}
+	},
 	'pop' => sub {
 		my $sum = 0;
 		$sum += popcount_4($_) foreach(@random_set_of_int);
