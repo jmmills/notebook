@@ -1,4 +1,5 @@
 package BSTree;
+use 5.12.0;
 use Mouse;
 
 has 'value' => (is => 'ro', isa => 'Str');
@@ -25,7 +26,7 @@ sub add_sibling {
 sub search { 
 	my $self = shift;
 	my $value = shift;
-
+	
 	my @return;
 	return grep { defined($_) } (
 		$self->value eq $value? $self : undef,
