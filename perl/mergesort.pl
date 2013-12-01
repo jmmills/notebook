@@ -46,6 +46,6 @@ my @s = mergesort( @n );
 say join(',', @s);
 
 {
-	use sort '_mergesort'
+	use sort '_mergesort';
 	say join(',', sort(@n));
 }
