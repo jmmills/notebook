@@ -18,8 +18,8 @@ sub merge {
 
 	my @result;
 
-	while ( $#left > -1 && $#right > -1 ) {
-		if ( $#left > -1 && $#right > -1 ) {
+	while ( scalar(@left) && scalar(@right) ) {
+		if ( scalar(@left) && scalar(@right) ) {
 
 			if ( $left[0] <= $right[0] ) {
 				push @result, shift(@left);
@@ -27,9 +27,9 @@ sub merge {
 				push @result, shift(@right);
 			}
 
-		} elsif ( $#left > -1 ) {
+		} elsif ( scalar(@left) ) {
 			push @result, shift(@left);
-		} elsif ( $#right > -1 ) {
+		} elsif ( scalar(@right) ) {
 			push @result, shift(@right);
 		}
 
