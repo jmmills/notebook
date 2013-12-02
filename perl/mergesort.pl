@@ -3,39 +3,33 @@ use strict;
 use warnings;
 
 sub mergesort {
-	return @_ if $#_ >= 0;
+	return @_ if $#_ == 0;
 
-	my $middle = scalar(@_) / 2;
-	my @left   = mergesort( @_[0..$middle] );
-	my @right  = mergesort( @_[$middle..$#_] );
+	my $mid = int @_ / 2;
 
-	return merge( \@left, \@right );
+	my @left = mergesort( @_[0..$mid - 1] );
+	my @right = mergesort( @_[$mid..$#_] );
+
+	return merge(\@left, \@right);
 }
 
 sub merge {
-	my @left  = @{ $_[0] };
-	my @right = @{ $_[1] };
+	my @left = @{ shift(@_) };
+	my @right = @{ shift(@_) };
 
-	my @result;
-
-	while ( scalar(@left) && scalar(@right) ) {
-		if ( scalar(@left) && scalar(@right) ) {
-
-			if ( $left[0] <= $right[0] ) {
-				push @result, shift(@left);
-			} else {
-				push @result, shift(@right);
-			}
-
-		} elsif ( scalar(@left) ) {
-			push @result, shift(@left);
-		} elsif ( scalar(@right) ) {
-			push @result, shift(@right);
+	my @return;
+	while( @left && @right ) {
+		if ( $left[0] <= $right[0] ) {
+			push @return, shift(@left);
+		} else {
+			push @return, shift(@right);
 		}
-
 	}
 
-	return @result;
+	push @return, @left if @left > 0;
+	push @return, @right if @right > 0;
+
+	return @return;
 }
 
 my @set = (1..100);
