@@ -1,6 +1,7 @@
 use 5.12.0;
 use strict;
 use warnings;
+use Benchmark;
 
 sub mergesort {
 	return @_ if $#_ == 0;
@@ -46,3 +47,17 @@ say "Mergesort perl:   ".join(',', sort { $a <=> $b } @org );
 my @s = mergesort( @org );
 say "Mergesort jason:  ".join(',', @s);
 
+
+my $iter = 1_000_000;
+
+timethese( $iter, {
+	'perl native sort' => sub { sort { $a <=> $b } @org },
+	'jason merge sort' => sub { mergesort( @org ); }
+});
+
+{
+	use sort '_mergesort';
+	timethese( $iter, {
+		'perl native mergesort' => sub { sort { $a <=> $b } @org }
+	});
+}
