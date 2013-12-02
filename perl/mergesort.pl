@@ -34,7 +34,7 @@ sub merge {
 }
 
 my @set = (1..100);
-my @org = map { $set[int(rand(99))] } (0..9); 
+my @org = map { $set[int(rand(99))] } ( 0 .. (1 + int(rand(20))) ); 
 
 say "Unsorted:         ".join(',', @org);
 say "Perl sort:        ".join(',', sort { $a <=> $b } @org );
@@ -47,6 +47,7 @@ say "Mergesort perl:   ".join(',', sort { $a <=> $b } @org );
 my @s = mergesort( @org );
 say "Mergesort jason:  ".join(',', @s);
 
+exit if defined($ENV{NO_BENCH});
 
 my $iter = 1_000_000;
 
