@@ -1,9 +1,9 @@
 use 5.12.0;
+use strict;
 use warnings;
-use Test::More;
 
 sub mergesort {
-	return @_ if $#_ >= 1;
+	return @_ if $#_ >= 0;
 
 	my $middle = scalar(@_) / 2;
 	my @left   = mergesort( @_[0..$middle] );
@@ -14,7 +14,7 @@ sub mergesort {
 
 sub merge {
 	my @left  = @{ $_[0] };
-	my @right = @{ $_[0] };
+	my @right = @{ $_[1] };
 
 	my @result;
 
@@ -38,14 +38,17 @@ sub merge {
 	return @result;
 }
 
-my @n = (9..0);
+my @set = (1..100);
+my @org = map { $set[int(rand(99))] } (0..9); 
 
-say join(',', @n);
-
-my @s = mergesort( @n );
-say join(',', @s);
+say "Unsorted:         ".join(',', @org);
+say "Perl sort:        ".join(',', sort { $a <=> $b } @org );
 
 {
-	use sort '_mergesort';
-	say join(',', sort(@n));
+use sort qw[_mergesort];
+say "Mergesort perl:   ".join(',', sort { $a <=> $b } @org );
 }
+
+my @s = mergesort( @org );
+say "Mergsort jason:   ".join(',', @s);
+
