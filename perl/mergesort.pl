@@ -50,5 +50,5 @@ say "Mergesort perl:   ".join(',', sort { $a <=> $b } @org );
 }
 
 my @s = mergesort( @org );
-say "Mergsort jason:   ".join(',', @s);
+say "Mergesort jason:  ".join(',', @s);
 
