@@ -9,6 +9,9 @@ my $fn = $ARGV[0]
 
 my $csv = Text::CSV_XS->new({ binary => 1 });
 
+# SET EOL CHAR HERE!
+$csv->eol("\r\n");
+
 open my $fh, "<:encoding(utf8)", $fn
 	or die "Error with file '$fn': $!";
 
