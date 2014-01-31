@@ -1,0 +1,16 @@
+# squaremath.py
+
+def sq(x):
+  return x * x
+
+if __name__ == '__main__':
+  print('Testing: Square of 2 == ', sq(2))
+
+
+
+
+
+'''
+if __name__ == '__main__':
+    print('Testing: square of 2 == ', square(2))
+'''

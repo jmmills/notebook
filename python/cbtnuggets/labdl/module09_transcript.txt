@@ -1,0 +1,92 @@
+
+# ************* Sets ************
+s1 = set([0, 2, 4, 6])
+s2 = set('cbtnuggets') #notice lack of seq order
+s1.add(8)
+s3 = set([10, 12, 14, 16])
+s1.update(s3)
+8 in s1 #test for membership
+5 in s1
+10 not in s1
+s1.pop() #arbitrary deletion
+s1.remove(16) #focused removal
+
+s4 = s1.clear()
+s2
+for i in s2:
+    print(i)
+
+# looking for dupes
+lang = ['lisp', 'python', 'abc', 'c', 'python', 'ruby', 'perl', 'ruby']
+
+l1 = set(lang)s
+l1 #note lack of dupes; order
+
+morelang = ['sql', 'erlang', 'perl', 'haskell']
+l2 = set(morelang)
+
+l1 - l2 #lang that aren't in morelang
+
+l1.intersection(l2) #elements in both sets
+
+u = l1.union(l2) # union
+type(u)
+
+s1
+s3
+s1.issubset(s3)
+s3.issubset(s1)
+
+# set comprehension (returns set instead of list)
+mylist = [1, 2, 3, 4]
+setcomp = {i * 2 for i in mylist}
+type(setcomp)
+
+
+
+
+
+# ******** List Comprehensions ********
+>>alist = [1, 2, 4, 8, 16]
+alist = [i * 2 for i in alist]
+
+>>phrase = "Lorem ipsum dolor sit amet consectetur adipiscing elit".split()
+type(phrase)
+stuff = [[p.upper(), p.lower(), len(p)] for p in phrase]
+
+#Dictionary Comprehension (swap keys and values)
+dict1 = {'ay':1, 'bee':2, 'cee':3}
+dict1 = {value:key for key, value in adict.items()}
+
+st = 'asdf' #credit stackoverflow.com
+[st[:n+1] for n in range(len(st))]
+['a', 'as', 'asd', 'asdf']
+
+
+my_list = ['MiXeD', 'CASE', 'elemeNTS']
+t = []
+for x in my_list:
+    t.append(x.lower())
+my_list = t
+
+OR
+
+my_list = [x.lower() for x in my_list]
+
+
+f = open('script.py')
+l = f.readlines()
+l
+type(l)
+l = [line.rstrip() for line in l]
+l
+
+****DON'T FORGET****
+load mod9.py, and mod9a.py
+
+
+
+*******MAP() FUNCTION*********
+
+
+

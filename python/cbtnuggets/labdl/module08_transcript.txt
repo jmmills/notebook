@@ -1,0 +1,77 @@
+# for loops
+
+* for letter in 'Python':
+    print('Current letter is: ',letter)
+
+* for veg in ['celery', 'mushroom', 'okra']:
+     print('Current vegetable is: ', veg)
+
+* for i in range(1,5):
+    print(i)
+
+>>> tup = [(1, 2), (3, 4), (5, 6)]
+>>> for (a, b) in tup:
+     print(a, b)
+
+* >>> import os
+>>> for k, v in os.environ.items():
+	print('%s = %s' % (k, v))
+
+
+* f = open('spam.txt')
+for line in f:
+    print(line)
+
+
+nm = {'Key 1': 'value 1', 'key 2': 'value 2'}
+for k, v in nm.iteritems():
+     print(k, v)
+
+>>> i = ["abc", 123, (5, 6), 4.20]
+>>> query = [(5, 6), 3.14]
+>>> for key in query:
+       if key in i:
+           print(key, "was found")
+       else:
+           print(key, "not found!")
+
+for mult in range(4,7): #Runs 3 iterations, 4, 5, and 6
+    for i in range(1, 11): # Going to print a single mult table (1-10)
+        print(i, "x", mult, "=", i * mult)
+    print()
+
+
+
+
+**********
+
+# infinite loop
+
+while True:
+   print("20 GOTO 10")
+
+x = 0
+y = 13
+while x < y:
+    print(x)
+    x += 1
+
+a = 0
+while a < 13:
+    a += 1
+    if a == 5:
+        continue
+    if a == 10:
+        break
+    print(a)
+
+** look in mod8.py
+
+
+
+
+
+
+
+
+

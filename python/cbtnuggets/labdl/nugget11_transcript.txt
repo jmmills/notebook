@@ -1,0 +1,134 @@
+# OS Stuff
+import os
+dir(os)
+
+p = os.path.join('C:/', 'files2')
+os.listdir(p)
+
+
+os.name #posix on nix, mac os x
+import sys
+sys.platform # darwin on mac os x; linux on nix
+print(list(os.environ.items()))
+
+ for param in os.environ.keys():
+	print(param, os.environ[param])
+
+
+
+# Accessing directories
+help(os.getcwd)
+os.getcwd()
+os.listdir(os.curdir)
+os.listdir('C:/files')
+os.chdir('C:/files')
+os.getcwd()
+os.listdir(os.curdir)
+
+import shutil
+shutil.copy2('readme.txt','readme2.txt')
+os.listdir(os.curdir)
+
+os.rename('readme.txt','notread.txt')
+os.listdir(os.curdir)
+
+os.mkdir('morefiles')
+os.mkdir('removeme')
+
+shutil.move('readme2.txt', 'C:/files2/morefiles')
+os.listdir('C:/files2/morefiles')
+
+os.rmdir('removeme')
+os.listdir(os.curdir)
+
+#Reading files (mention speed adv of iterators)
+os.chdir('C:/files2/morefiles')
+os.getcwd()
+f = open('readme2.txt', 'w')
+type(f)
+f.write('first line of text\n') #gonna overwrite file
+f.write('the second line of text\n')
+f.close()
+f = open('readme2.txt')
+f.readline()
+f.readline()
+f.readline()
+
+#Now let's append data to readme2.txt
+f = open('readme2.txt', 'a')
+f.write('\n\nThe new bottom line.\n')
+f.close()
+
+open('readme2.txt').read()
+
+print(open('readme2.txt').read())
+
+for line in open('test.txt').readlines():
+    print(line, end='')
+
+
+#Create a new file
+newfile = open('newfile.txt', 'w')
+newfile.write('''mult para''') #open in explorer
+newfile.close() #open in explorer
+
+# Open an image with Py2.6.4
+import Image
+im = Image.open('C:/files2/convert.jpg')
+type(im)
+im.show()
+
+# Open a PDF still need py2
+import gfx
+doc = gfx.open('pdf', 'C:/files2/javascript-guide.pdf')
+doc.getInfo()
+
+img = gfx.ImageList()
+img.setparameter("antialise", "1")
+page1 = doc.getPage(1)
+img.startpage(page1.width,page1.height)
+page1.render(img)
+img.endpage()
+img.save("thumbnail2.png")
+# now go to c:/python26 and view file
+
+
+# Walking a directory tree (py3k)
+os.chdir('C:/files2')
+for root, dirs, files in os.walk(os.curdir):
+  print('{0} has {1} files'.format(root, len(files)))
+
+import glob
+glob.glob('C:/files2/*.txt')
+
+for name in glob.glob('C:/files2/*'):
+	print(name)
+
+
+# 'Named explicitly:'
+for name in glob.glob('C:/files2/morefiles/*'):
+    print('\t', name)
+
+# 'Named with wildcard:'
+for name in glob.glob('dir/*/*'):
+    print '\t', name
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

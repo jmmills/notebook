@@ -1,0 +1,48 @@
+#Advanced String Methods
+str1 = 'this is a sample string.'
+str1.capitalize()
+str1.count('is') # notice both occur
+str1.count(' is ')
+str1.find('amp') #search substring
+str1.isupper() #false
+str1.upper()
+str1.lower()
+str1.title()
+str2 = '     five taps of the spacebar     '
+str2.lstrip()
+str2.rstrip()
+str2.strip()
+str1.replace('sample', 'test')
+str3 = '1,2,,4,5'
+str3.split(',')
+days = ['Monday', 'Tuesday', 'Wednesday']
+week = ' '.join(days)
+
+#String Formatting
+sc = '%s has studied %d CBTN products.' % ('Pat', 10)
+sc = '%a has studied %b CBTN products.' % ('Pat', 10)
+scs = 'No %s for %s!' % ('soup', 'you')
+r = 'rest'
+w = 'the weary'
+scs2 = 'No %s for %s.' % (r, w)
+arb = '{0}, {1}, and {2}'.format('this', 'that', 'the other')
+arb2 = 'This {1} can {2}'.format('bird', 'sing')
+
+#keyboard input
+create file kimput.py
+lb = int(input("Enter lower bound: "))
+ub = int(input("Enter upper bound: "))
+
+print("\nYou chose {0} as your lower bound, and {1} as your upper bound.".format(lb, ub))
+verif = input("\nProceed? (y/n): ")
+response = verif.lower()
+
+if response == 'y':
+    for multiplier in range (lb, (ub + 1)):
+        for i in range (1, 11):
+            print(i, "x", multiplier, "=", i * multiplier)
+else:
+   print("We're done!")
+
+
+

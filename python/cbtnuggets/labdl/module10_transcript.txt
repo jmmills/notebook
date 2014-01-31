@@ -1,0 +1,86 @@
+#built-in functions
+abs(-3.14)
+len('CBT Nuggets')
+
+
+
+
+
+
+*****************************
+ mylist = mylist.append('New element')
+
+ import random
+ ri = random.randint(1,100)
+
+*****************************
+# no return value
+def typer(x):
+    if type(x) == int:
+        print('This is an integer')
+    elif type(x) == str:
+        print('This is a string')
+    else:
+        print('This is neither an int nor a string')
+
+print(typer(200))
+
+******************************
+def fib(n): 
+     """Print a Fibonacci series up to n."""
+     a = 0
+     b = 1
+     while b < n:
+         print(b)
+         a, b = b, a + b
+ 
+# Now call the function we just defined:
+fib(2000)
+
+*****************************
+# return value, default value
+def namer(fn, ln='Warner'):
+    r = print('Your name is', fn, ln)
+    return r
+
+namer('Tim')
+
+******************************
+def demo (f_in):
+       global somevar  # shared with main code
+       demo.tom = 16   # An attribute accessible from main code
+       somevar += 1
+       another = 12    # A local variable, independent of main code
+       res = f_in+14   # Value passed in (f_in)
+       return res
+
+somevar = 27    # accessed in function via global
+another = 17    # not accessed in function
+pval = 16       # accessed in function via parameter
+
+print(demo(pval))
+
+print(demo.tom)  # function attribute
+print(somevar)
+print(another)
+
+
+        
+
+******************************
+def foo(a, b, *args, **kwargs):
+    print("Here is 'a'", a)
+    print("Here is 'b'", b)
+    print("Here is '*args'", *args)
+
+print(foo('spam', 'eggs', 'arb1', 'arb2', 'arb3'))
+
+
+
+
+
+
+
+
+
+

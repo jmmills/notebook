@@ -1,0 +1,26 @@
+# interpreter
+
+raise exception #case matters
+raise Exception
+raise Exception('The flux capacitor is broken')
+
+import exceptions #fails
+import builtins
+dir(builtins)
+
+raise IOError
+
+# do script file now
+
+a = input('First number, please: ')
+b = input('Second number: ')
+print('Your result is ', x/y)
+
+
+ class CustomError(Exception):
+     pass
+
+>>> raise CustomError('Something went kerflunky.')
+
+
+

@@ -1,0 +1,28 @@
+# Module 18: Database access
+
+import os
+import sqlite3
+
+os.getcwd()
+
+con = sqlite3.connect('hrdb')
+type(con)
+
+cur = con.cursor()
+
+cur.execute('CREATE TABLE emp (id integer primary key, fn varchar(20), ln varchar(20))''')
+fn text, ln text)')
+
+cur.execute('''INSERT INTO emp VALUES \
+(1, 'Tim', 'Warner')''')
+
+cur.execute('''INSERT INTO emp VALUES \
+(2, 'Zoey', 'Harter')''')
+
+cur.execute('SELECT * FROM emp')
+
+print(cur.fetchall())
+
+cur.execute('SELECT * from EMP where id = 1')
+
+print(cur.fetchall())

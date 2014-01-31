@@ -1,0 +1,45 @@
+import os
+d = os.listdir('\\\\192.168.1.106\\share')
+f = open('\\\\192.168.1.106\\share\dummy2.txt',	'w')
+f.write('Hello there from across the network.')
+f.close()
+
+import urllib
+import sys
+wp = urllib.urlopen()
+for line in wp:
+  sys.stdout.write(line)
+print(wp.info())
+
+redirect = urllib.urlopen('http://microsoft.org')
+redirect.geturl()
+
+urllib.urlretrieve('http://www.python.org', 'C:/files/py.html')
+
+# type httplib.py manually in the interpreter
+
+
+# FTP /redhat/linux/README
+
+from ftplib import FTP
+
+ftp = FTP('ftp.redhat.com')
+
+ftp.login()
+
+d = 'redhat/linux'
+
+ftp.cwd(d)
+
+print ftp.dir()
+
+ftp.retrlines('LIST')
+
+filename = 'README'
+
+fileh = open(filename, 'wb')
+
+ftp.retrbinary('RETR' + filename)
+
+file.close()
+

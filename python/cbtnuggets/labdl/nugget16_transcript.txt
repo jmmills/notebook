@@ -1,0 +1,73 @@
+# Generator Functions
+
+>>def gensq(n):
+    for i in range(n):
+        yield i ** 2
+
+a = gensq(4)
+a
+type(a)
+
+next(a)...
+
+
+>>> def itsq(n):
+	result = []
+	for i in range(n):
+		result.append(i ** 2)
+	return result
+
+b = itsq(4)
+b
+
+
+for j in itsq(4):
+    print(j)
+
+
+# List Comp
+
+lc = [2 ** i for i in range(15)]
+# returns list
+
+# Generator Expression
+
+>>> sum(j * j for j in range (15)) #sum of sq.
+
+>>>ml = [1, 2, 4, 8, 16, 32, 64]
+genexp = (i for i in ml if i > 10)
+print(genexp) #returns generator object
+next(genexp)...
+
+for j in genexp:
+   print(j)
+
+
+# Decorators (METAPROGRAMMING)
+
+def et(myfunc): #eight times)
+    def innerf(*args, **kwargs):
+        for i in range(8):
+            myfunc(*args, **kwargs)
+    return innerf
+
+def nondec():
+    print('eggs')
+
+trythis = et(nondec)
+
+#let's add a decorator
+
+@et
+def dec():
+    print('spam')
+
+dec()
+
+
+
+
+
+
+
+
