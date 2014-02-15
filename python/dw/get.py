@@ -6,6 +6,12 @@ import time
 import timeit
 
 
+class Fetch:
+    def one(url):
+        r = requests.get(url)
+        return [url, r]
+
+
 class Get:
 
     def __init__(self, iterations):
@@ -30,8 +36,11 @@ class Get:
 
     def run(self, file):
         self._read_urls(file)
-        #self.timer = timeit.timeit(_curried, number=self.iterations)
-        self.results = self.fetch()
+
+        def _cur():
+            self.results = self.fetch()
+
+        self.timer = timeit.timeit(_cur, number=self.iterations)
 
         return self.results
 
@@ -46,9 +55,7 @@ class Get:
 class Std(Get):
 
     def fetch_one(self, url):
-        r = requests.get(url)
-        return [url, r.status_code]
-
+        return Fetch.one(url)
 
 class Distro(Get):
 
@@ -98,4 +105,4 @@ class RQ(Distro):
         return obj.result
 
     def fetch_one(self, url):
-        return self.q.enqueue(super(Distro, self).fetch_one, url)
+        return self.q.enqueue(Fetch.one, url)
