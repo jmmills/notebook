@@ -11,7 +11,7 @@ class Get:
     def __init__(self, iterations):
         self.urls = []
         self.results = []
-        self.iterations = iterations
+        self.iterations = iterations or 0
         self.timer = 0
         pass
 
@@ -21,19 +21,17 @@ class Get:
     def fetch_multi(self, urls):
         return [self.fetch_one(url.rstrip()) for url in urls]
 
+    def fetch(self):
+        return self.fetch_multi(self.urls)
+
     def _read_urls(self, file):
         with open(file) as data:
             self.urls = list(data)
 
     def run(self, file):
         self._read_urls(file)
-
-        obj = self
-
-        def _curried():
-            obj.results = self.fetch_multi(obj.urls)
-
-        self.timer = timeit.timeit(_curried, number=self.iterations)
+        #self.timer = timeit.timeit(_curried, number=self.iterations)
+        self.results = self.fetch()
 
         return self.results
 
@@ -44,6 +42,7 @@ class Get:
             self.timer
         )
 
+
 class Std(Get):
 
     def fetch_one(self, url):
@@ -53,47 +52,50 @@ class Std(Get):
 
 class Distro(Get):
 
-    def __init__(self, timeout):
+    def __init__(self, iterations, timeout):
+        super(Distro, self).__init__(iterations)
         self.timeout = timeout
-        self.q = self.build_queue()
         self.jobs = []
+        self.build_queue()
 
-    def get_result(obj):
+    def build_queue(self):
+        raise Exception('define build_queue method')
+
+    def get_result(self, obj):
         raise Exception('define get_result method')
 
     def return_result_list(self):
         return [self.get_result(job) for job in self.jobs]
 
     def the_jobs_are_not_done(self):
-        done = len(list(filter, self.return_result_list()))
+        done = len(list(self.return_result_list()))
         jobs = len(self.jobs)
 
         return done != jobs
 
-    def time_is_up(self,t):
+    def time_is_up(self, t):
         return time.time() - t > self.timeout
 
-    def wait_for_job(self):
+    def wait_for_jobs(self):
 
         start = time.time();
         while self.the_jobs_are_not_done():
             if self.time_is_up(start):
                 raise Exception('Reached fetch timeout')
 
-    def fetch_multi(self, urls):
-        self.jobs = super(Distro, self).fetch_mutli(urls)
-        self.wait_for_job()
+    def fetch(self):
+        self.jobs = super(Distro, self).fetch()
+        self.wait_for_jobs()
         return self.return_result_list()
 
 
 class RQ(Distro):
 
-    def __init__(self, timeout):
+    def build_queue(self):
         self.q = Queue(connection=Redis())
-        self.timeout = timeout
 
-    def get_result(obj):
+    def get_result(self, obj):
         return obj.result
 
     def fetch_one(self, url):
-        return self.q.enqueue('fetch_one', url)
+        return self.q.enqueue(super(Distro, self).fetch_one, url)
