@@ -3,9 +3,8 @@
 import sys
 import get
 
-std = get.Std()
-urls = [x for x in sys.stdin]
+std = get.Std(1)
+file = sys.argv[1]
 
-for x in std.fetch_multi(urls):
-    print('{0}: {1}'.format(x[0],x[1]))
-
+std.run(file)
+print(std.stopwatch())

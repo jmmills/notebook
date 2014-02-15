@@ -3,11 +3,16 @@ from rq import Queue
 
 import requests
 import time
+import timeit
 
 
 class Get:
 
-    def __init__(self):
+    def __init__(self, iterations):
+        self.urls = []
+        self.results = []
+        self.iterations = iterations
+        self.timer = 0
         pass
 
     def fetch_one(self, url):
@@ -16,6 +21,28 @@ class Get:
     def fetch_multi(self, urls):
         return [self.fetch_one(url.rstrip()) for url in urls]
 
+    def _read_urls(self, file):
+        with open(file) as data:
+            self.urls = list(data)
+
+    def run(self, file):
+        self._read_urls(file)
+
+        obj = self
+
+        def _curried():
+            obj.results = self.fetch_multi(obj.urls)
+
+        self.timer = timeit.timeit(_curried, number=self.iterations)
+
+        return self.results
+
+    def stopwatch(self):
+        return 'Ran {0} times, fetching {1} urls, took {2:.2f} seconds'.format(
+            self.iterations,
+            len(self.urls),
+            self.timer
+        )
 
 class Std(Get):
 
