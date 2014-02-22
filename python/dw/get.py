@@ -105,4 +105,5 @@ class RQ(Distro):
         return obj.result
 
     def fetch_one(self, url):
-        return self.q.enqueue(Fetch.one, url)
+        f = Fetch.one
+        return self.q.enqueue(f, url)
