@@ -1,0 +1,1 @@
+docker images  | perl -anE 'say $F[2] if $F[0]=~/<none>/' | xargs docker rmi
