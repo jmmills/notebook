@@ -9,7 +9,7 @@ class MergeSort(list):
         left  = self.__class__()
         right = self.__class__()
 
-        for idx, item in self:
+        for idx, item in enumerate(self):
             if idx % 2:  # odds to the left evens to the right
                 left.append(item)
             else:
@@ -22,22 +22,20 @@ class MergeSort(list):
 
         return self
 
-    def merge(left, right):
-        result = self.__class__()
+    def merge(self, left, right):
+        del self[:]
 
         while left and right:
             if left[0] <= right[0]:
-                result.append(left.popleft())
+                self.append(left.pop(0))
             else:
-                result.append(right.popleft())
+                self.append(right.pop(0))
 
         while left:
-            result.append(left.popleft())
+            self.append(left.pop(0))
 
         while right:
-            result.append(right.popleft())
-
-        self = result
+            self.append(right.pop(0))
 
         return self
 
@@ -54,9 +52,31 @@ class TestMergeSort(unittest.TestCase):
 
         a.sort()
 
-        self.assertEquals(a, b)
+        self.assertEqual(a, b)
 
+    def test_sort_duplicates(self):
+        a = MergeSort([3, 3, 1, 5])
+        b = [1, 3, 3, 5]
+
+        a.sort()
+
+        self.assertEqual(a, b)
+
+    def test_sort_single(self):
+        a = MergeSort([3])
+        b = [3]
+
+        a.sort()
+
+        self.assertEqual(a, b)
+
+    def test_sort_empty(self):
+        a = MergeSort([])
+        b = []
+
+        a.sort()
+
+        self.assertEqual(a, b)
 
 if __name__ == '__main__':
-    print ("Testing\n")
     unittest.main()
