@@ -1,24 +1,22 @@
 import unittest
 
 class MergeSort(list):
+    sorted = False
 
     def sort(self):
-        if len(self) <= 1:
+        if len(self) <= 1 or self.sorted:  # a list that is less than or equal to a length of 1 is considered sorted
             return self
 
-        left  = self.__class__()
-        right = self.__class__()
-
-        for idx, item in enumerate(self):
-            if idx % 2:  # odds to the left evens to the right
-                left.append(item)
-            else:
-                right.append(item)
+        mid = len(self) // 2
+        left  = self.__class__(self[:mid])
+        right = self.__class__(self[mid:])
 
         left.sort()
         right.sort()
 
         self.merge(left, right)
+
+        self.sorted = True  # mark as sorted
 
         return self
 
@@ -31,11 +29,8 @@ class MergeSort(list):
             else:
                 self.append(right.pop(0))
 
-        while left:
-            self.append(left.pop(0))
-
-        while right:
-            self.append(right.pop(0))
+        self.extend(left)
+        self.extend(right)
 
         return self
 
@@ -45,6 +40,14 @@ class TestMergeSort(unittest.TestCase):
     def test_mergesort_subclass(self):
         a = MergeSort([])
         assert isinstance(a, list)
+
+    def test_sort_repeated(self):
+      a = MergeSort([41,35,12,34,56,2,3,23,94,4])
+      b = [2,3,4,12,23,34,35,41,56,94]
+      a.sort()
+      for i in range(1,2**15):
+        a.sort()
+        #self.assertTrue(a.sorted)
 
     def test_sort_normal(self):
         a = MergeSort([41,35,12,34,56,2,3,23,94,4])
