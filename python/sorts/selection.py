@@ -3,23 +3,17 @@ from unittest import TestCase
 class SelectionSort(list):
 
   def sort(self):
-    
-    sorted = []
+     
+    for i in range(0, len(self)):
+      min = i
+      for j in range(i + 1, len(self)):
+        if self[j] < self[min]:
+          min = j
+      if min != i:
+        self[min], self[i] = self[i], self[min]
 
-    while self:
-      sorted.append(self.pop(self._select()))
-
-    self.extend(sorted)
 
     return self
-
-  def _select(self):
-    i, m = 0, self[0]
-    for idx, ele in enumerate(self):
-      if ele < m:
-        i, m = idx, self[idx]
-
-    return i
 
 class TestSelectionSort(TestCase):
 
