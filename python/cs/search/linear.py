@@ -22,3 +22,7 @@ class Test(TestCase):
 
   def test_search_false(self):
     self.assertFalse(search(self.a, 100))
+
+  def test_bench_mark(self):
+    for n in range(0, 2 ** 20):
+      self.assertEqual(search(self.a, 4), 1)
